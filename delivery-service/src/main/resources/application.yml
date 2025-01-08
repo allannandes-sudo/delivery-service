@@ -1,0 +1,27 @@
+spring:
+  application:
+    name: delivery-service
+  data:
+    mongodb:
+      uri: mongodb://localhost:27017/deliverydb
+  kafka:
+    bootstrap-servers: localhost:9092
+    producer:
+      retries: 5
+      retry-backoff-ms: 300
+      acks: all
+      batch-size: 16384
+      linger-ms: 50
+      buffer-memory: 33554432
+      key-serializer: org.apache.kafka.common.serialization.StringSerializer
+      value-serializer: org.apache.kafka.common.serialization.StringSerializer
+      properties:
+        spring.json.trusted.packages: '*'
+topic:
+  process-event: order.processing.v1
+
+logging:
+  level:
+    root: INFO
+    com.orders.delivery_service: DEBUG
+

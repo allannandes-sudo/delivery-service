@@ -1,0 +1,54 @@
+plugins {
+	id 'java'
+	id 'org.springframework.boot' version '3.4.0'
+	id 'io.spring.dependency-management' version '1.1.7'
+	id 'idea'
+	id "org.sonarqube" version "4.0.0.2929"
+	id 'org.springdoc.openapi-gradle-plugin' version '1.9.0'
+	id 'jacoco'
+}
+ext {
+
+	set('springdoc', "2.0.2")
+	set('lombok', "1.18.22")
+	set('mapstruct', "1.5.3.Final")
+	set('lombokMapstructBindingVersion', "0.2.0")
+	set('junit', "4.13.1")
+	set('webjars', "5.18.2")
+}
+
+sourceCompatibility = JavaVersion.VERSION_17
+targetCompatibility = JavaVersion.VERSION_17
+
+group = 'com.orders'
+version = '0.0.1-SNAPSHOT'
+
+repositories {
+	mavenCentral()
+}
+
+
+dependencies {
+	// Spring
+	implementation 'org.springframework.boot:spring-boot-starter-validation'
+	//Kafka
+	implementation 'org.springframework.kafka:spring-kafka'
+	// Swagger
+	implementation ("org.springdoc:springdoc-openapi-starter-webflux-ui:${springdoc}"){
+		implementation "org.webjars:swagger-ui:${webjars}"
+	}
+	// Reactive Spring
+	implementation 'org.springframework.boot:spring-boot-starter-webflux'
+	implementation "org.springframework.boot:spring-boot-starter-data-mongodb-reactive"
+	// Lombok
+	compileOnly "org.projectlombok:lombok:${lombok}"
+	annotationProcessor "org.projectlombok:lombok:${lombok}"
+	// Mapper
+	implementation "org.mapstruct:mapstruct:${mapstruct}"
+	annotationProcessor "org.mapstruct:mapstruct-processor:${mapstruct}"
+	annotationProcessor "org.projectlombok:lombok-mapstruct-binding:${lombokMapstructBindingVersion}"
+	// Test
+    testImplementation 'org.springframework.boot:spring-boot-starter-test'
+    testImplementation 'io.projectreactor:reactor-test'
+	testImplementation "junit:junit:${junit}"
+}
